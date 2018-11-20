@@ -33,21 +33,25 @@ public class Algo {
 		double[][] Gn = initGn(sizeSn,Sn);
 		
 		//Backward pass
-		//Turbine 5:
+		//Turbine 5 (premiere passe):
+		
+		//Fnmax: Solution optimal 
 		double[][] Fnmax = new double[6][sizeSn];
 		for(int sn = 0; sn<sizeSn; sn++) {
 			Fnmax[5][sn] = Gn[5][sn];		
 		}
 		
 		//Turbines intermédiaires:
+		//FnInter: Tableau contenant tous les cas possibles
 		double[][] FnInter = new double[sizeSn][sizeSn];
 		
-		
+		//Pour toutes les turbines intermediaires: (ici de 4 à 2)
 		for(int turbine = 4; turbine > 1; turbine --) {
 		
 			for(int sn = 0; sn<sizeSn; sn++) {
 				for(int xn = 0; xn<sizeSn; xn++) {
 					if(sn-xn < 0) {
+						//zone non remplissable du tableau
 						FnInter[xn][sn]= -1 ;
 					}else {
 						FnInter[xn][sn]= Gn[turbine][xn] + Fnmax[turbine+1][sn-xn]  ;
@@ -58,13 +62,17 @@ public class Algo {
 				}
 			}
 		
-			//Trouver les maxi
+			//Trouver les maxi: reconstruction de Fnmax pour le calcul de la turbine précédente
 			Fnmax[turbine][0] = 0;
+			//Recupération du débit pour le quel Fnmax est maximum (pour l'utiliser dans le forward pass)
 			Qn[turbine][0] = 0;
+			//TODO : Qn toujours à 0, c'est pas normal
 			for(int sn = 1; sn<sizeSn; sn++) {
 				for(int xn = 0; xn<sizeSn; xn++) {
 					if(Fnmax[turbine][sn] < FnInter[xn][sn]) {
+						//Récupération du maximum
 						Fnmax[turbine][sn] = FnInter[xn][sn];
+						//Récupération du débit correspondant au maximum
 						Qn[turbine][xn] = Sn[sn];
 					}
 				}
