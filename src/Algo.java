@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Algo {
 	//Paramètres
 	private static final int qtot = 15;
@@ -31,20 +29,51 @@ public class Algo {
 			indexSn++;
 		}
 		
-		double[][] Gn = new double[6][sizeSn];
+			
+		//Initialisation de Gn
+		double[][] Gn = initGn(sizeSn,Sn);
 		
 		//Backward pass
-
 		//Turbine 5:
-			for(int sn = 0; sn<sizeSn; sn++) {
-				double hn =  calculHauteurChuteNette(Sn[sn]);
-				double p = calculPuissance(Sn[sn], hn, 5);
-				Gn[5][sn] = p;
-				System.out.println("Puissance turbine  : " + Gn[5][sn]);
-				System.out.println("Sn: " + Sn[sn]);
+		double[] Fn = new double[sizeSn];
+		for(int sn = 0; sn<sizeSn; sn++) {
+			Fn[sn] = Gn[5][sn];		
+		}
+		
+		//Turbine 4:
+		double[][] FnInter = new double[sizeSn][sizeSn];
+		double[][] Fnmax = new double[6][sizeSn];
+		
+		for(int turbine = 4; turbine > 1; turbine --) {
+		
+		for(int sn = 0; sn<sizeSn; sn++) {
+			for(int xn = 0; xn<sizeSn; xn++) {
+				if(sn-xn < 0) {
+					FnInter[xn][sn]= -1 ;
+				}else {
+					FnInter[xn][sn]= Gn[turbine][xn] + Fn[sn-xn]  ;
+				}
+				
+				System.out.println(" Fninter: " + FnInter[xn][sn]);
 			}
-
+		}
+		
+		
 	
+		//Trouver les maxi
+		Fnmax[turbine][0] = 0;
+		for(int sn = 1; sn<sizeSn; sn++) {
+			for(int xn = 1; xn<sizeSn; xn++) {
+				if(FnInter[xn-1][sn] < FnInter[xn][sn]) {
+					Fnmax[turbine][sn] = FnInter[xn][sn];
+				}
+			}
+			System.out.println("turbine: " + turbine + " sn: " + sn + " Fnmax: " + Fnmax[turbine][sn]);
+		}
+		
+		}
+		//Turbine i:
+		
 	}
 
 	private static double calculHauteurChuteNette(double qn) {
@@ -93,5 +122,16 @@ public class Algo {
 		return puissance *= 0.001;
 
 	}
-	
+
+	private static double[][] initGn(int sizeSn, int[] Sn){
+		double[][] Gn = new double[6][sizeSn];
+		for(int turbine=1;turbine<=5;turbine++) {
+			for(int sn = 0; sn<sizeSn; sn++) {
+				double hn =  calculHauteurChuteNette(Sn[sn]);
+				double p = calculPuissance(Sn[sn], hn, turbine);
+				Gn[turbine][sn] = p;				
+			}
+		}
+		return Gn;
+	}
 }
