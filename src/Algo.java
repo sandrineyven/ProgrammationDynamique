@@ -19,13 +19,12 @@ public class Algo {
 		//Discrétisation de Sn
 		int sizeSn = qtot/5 +1;
 		int[] Sn = new int[sizeSn];
-		int[] Qn = new int[sizeSn];
+		int[][] Qn = new int[6][sizeSn];
 		int indexSn = 0;
 		for(int i= 0; i<=qtot; i +=5) {
 			//Débit restant
 			Sn[indexSn] = i;
 			//Débit attribué
-			Qn[indexSn] = i;
 			indexSn++;
 		}
 		
@@ -35,45 +34,44 @@ public class Algo {
 		
 		//Backward pass
 		//Turbine 5:
-		double[] Fn = new double[sizeSn];
+		double[][] Fnmax = new double[6][sizeSn];
 		for(int sn = 0; sn<sizeSn; sn++) {
-			Fn[sn] = Gn[5][sn];		
+			Fnmax[5][sn] = Gn[5][sn];		
 		}
 		
-		//Turbine 4:
+		//Turbines intermédiaires:
 		double[][] FnInter = new double[sizeSn][sizeSn];
-		double[][] Fnmax = new double[6][sizeSn];
+		
 		
 		for(int turbine = 4; turbine > 1; turbine --) {
 		
-		for(int sn = 0; sn<sizeSn; sn++) {
-			for(int xn = 0; xn<sizeSn; xn++) {
-				if(sn-xn < 0) {
-					FnInter[xn][sn]= -1 ;
-				}else {
-					FnInter[xn][sn]= Gn[turbine][xn] + Fn[sn-xn]  ;
-				}
+			for(int sn = 0; sn<sizeSn; sn++) {
+				for(int xn = 0; xn<sizeSn; xn++) {
+					if(sn-xn < 0) {
+						FnInter[xn][sn]= -1 ;
+					}else {
+						FnInter[xn][sn]= Gn[turbine][xn] + Fnmax[turbine+1][sn-xn]  ;
+						//System.out.println( turbine + " Gn[turbine][xn] " + Gn[turbine][xn] + " Fnmax[turbine+1][sn-xn] " + Fnmax[turbine+1][sn-xn]);
+					}
 				
-				System.out.println(" Fninter: " + FnInter[xn][sn]);
-			}
-		}
-		
-		
-	
-		//Trouver les maxi
-		Fnmax[turbine][0] = 0;
-		for(int sn = 1; sn<sizeSn; sn++) {
-			for(int xn = 1; xn<sizeSn; xn++) {
-				if(FnInter[xn-1][sn] < FnInter[xn][sn]) {
-					Fnmax[turbine][sn] = FnInter[xn][sn];
+					System.out.println(" Fninter: " + FnInter[xn][sn]);
 				}
 			}
-			System.out.println("turbine: " + turbine + " sn: " + sn + " Fnmax: " + Fnmax[turbine][sn]);
-		}
 		
-		}
-		//Turbine i:
+			//Trouver les maxi
+			Fnmax[turbine][0] = 0;
+			Qn[turbine][0] = 0;
+			for(int sn = 1; sn<sizeSn; sn++) {
+				for(int xn = 0; xn<sizeSn; xn++) {
+					if(Fnmax[turbine][sn] < FnInter[xn][sn]) {
+						Fnmax[turbine][sn] = FnInter[xn][sn];
+						Qn[turbine][xn] = Sn[sn];
+					}
+				}
+				System.out.println("turbine: " + turbine + " sn: " + sn + " Fnmax: " + Fnmax[turbine][sn] + " qn: " + Qn[turbine][sn]);
+			}
 		
+		}		
 	}
 
 	private static double calculHauteurChuteNette(double qn) {
@@ -129,7 +127,8 @@ public class Algo {
 			for(int sn = 0; sn<sizeSn; sn++) {
 				double hn =  calculHauteurChuteNette(Sn[sn]);
 				double p = calculPuissance(Sn[sn], hn, turbine);
-				Gn[turbine][sn] = p;				
+				Gn[turbine][sn] = p;
+				System.out.println("turbine " + turbine + " Gn[turbine][sn]: " + Gn[turbine][sn]);
 			}
 		}
 		return Gn;
