@@ -19,12 +19,12 @@ public class Algo {
 		//Discrétisation de Sn
 		int sizeSn = qtot/5 +1;
 		int[] Sn = new int[sizeSn];
+		//Débit attribué
 		int[][] Qn = new int[6][sizeSn];
 		int indexSn = 0;
 		for(int i= 0; i<=qtot; i +=5) {
 			//Débit restant
 			Sn[indexSn] = i;
-			//Débit attribué
 			indexSn++;
 		}
 		
@@ -58,7 +58,7 @@ public class Algo {
 						
 						//System.out.println( "sn :"  +sn+ " xn : " +xn +" turbine: " + turbine + " Gn[turbine][xn] " + Gn[turbine][xn] + " Fnmax[turbine+1][sn-xn] " + Fnmax[turbine+1][sn-xn]);
 					}
-					System.out.println(" Fninter: " + FnInter[sn][xn]);
+					//System.out.println(" Fninter: " + FnInter[sn][xn]);
 				}
 			}
 		
@@ -66,7 +66,6 @@ public class Algo {
 			
 			//Recupération du débit pour le quel Fnmax est maximum (pour l'utiliser dans le forward pass)
 			Qn[turbine][0] = 0;
-			//TODO : Qn toujours à 0, c'est pas normal
 			for(int sn = 1; sn<sizeSn; sn++) {
 				for(int xn = 0; xn<sizeSn; xn++) {
 					if(Fnmax[turbine][sn] < FnInter[xn][sn]) {
@@ -77,9 +76,34 @@ public class Algo {
 						
 					}
 				}
+			//	System.out.println("turbine: " + turbine +" Fnmax: " + Fnmax[turbine][sn] + " qn: " + Qn[turbine][sn]);
+			}
+			for(int sn = 0; sn<sizeSn; sn++) {
 				System.out.println("turbine: " + turbine +" Fnmax: " + Fnmax[turbine][sn] + " qn: " + Qn[turbine][sn]);
 			}
-		}		
+		}
+		
+		//Turbine 1:
+		FnInter[sizeSn-1][0] = 0;
+		for(int xn = 1; xn<sizeSn; xn++) {
+				FnInter[sizeSn-1][xn]= Gn[1][xn] + Fnmax[2][sizeSn-1-xn]  ;
+				System.out.println("turbine: 1  FnInter: " + FnInter[sizeSn-1][xn] );
+		}
+		
+		for(int xn = 1; xn<sizeSn; xn++) {
+			if(FnInter[sizeSn-1][xn-1] < FnInter[sizeSn-1][xn]) {
+				//Récupération du maximum
+				Fnmax[1][sizeSn-1] = FnInter[sizeSn-1][xn];
+				//Récupération du débit correspondant au maximum
+				Qn[1][sizeSn-1] = Sn[xn];
+			}
+		}
+		System.out.println("turbine: 1  FnMax: " + Fnmax[1][sizeSn-1] +  "turbine: 1  QnMax: " + Qn[1][sizeSn-1]);
+		
+		//Forward pass
+		
+		
+		
 	}
 
 	private static double calculHauteurChuteNette(double qn) {
