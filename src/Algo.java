@@ -47,23 +47,23 @@ public class Algo {
 		
 		//Pour toutes les turbines intermediaires: (ici de 4 à 2)
 		for(int turbine = 4; turbine > 1; turbine --) {
-		
-			for(int sn = 0; sn<sizeSn; sn++) {
-				for(int xn = 0; xn<sizeSn; xn++) {
+			Fnmax[turbine][0] = 0;
+			for(int xn = 0; xn<sizeSn; xn++) {
+				for(int sn = 0; sn<sizeSn; sn++) {
 					if(sn-xn < 0) {
 						//zone non remplissable du tableau
-						FnInter[xn][sn]= -1 ;
+						FnInter[sn][xn]= -1 ;
 					}else {
-						FnInter[xn][sn]= Gn[turbine][xn] + Fnmax[turbine+1][sn-xn]  ;
-						//System.out.println( turbine + " Gn[turbine][xn] " + Gn[turbine][xn] + " Fnmax[turbine+1][sn-xn] " + Fnmax[turbine+1][sn-xn]);
+						FnInter[sn][xn]= Gn[turbine][xn] + Fnmax[turbine+1][sn-xn]  ;
+						
+						//System.out.println( "sn :"  +sn+ " xn : " +xn +" turbine: " + turbine + " Gn[turbine][xn] " + Gn[turbine][xn] + " Fnmax[turbine+1][sn-xn] " + Fnmax[turbine+1][sn-xn]);
 					}
-				
-					System.out.println(" Fninter: " + FnInter[xn][sn]);
+					System.out.println(" Fninter: " + FnInter[sn][xn]);
 				}
 			}
 		
 			//Trouver les maxi: reconstruction de Fnmax pour le calcul de la turbine précédente
-			Fnmax[turbine][0] = 0;
+			
 			//Recupération du débit pour le quel Fnmax est maximum (pour l'utiliser dans le forward pass)
 			Qn[turbine][0] = 0;
 			//TODO : Qn toujours à 0, c'est pas normal
@@ -73,12 +73,12 @@ public class Algo {
 						//Récupération du maximum
 						Fnmax[turbine][sn] = FnInter[xn][sn];
 						//Récupération du débit correspondant au maximum
-						Qn[turbine][xn] = Sn[sn];
+						Qn[turbine][sn] = Sn[sn];
+						
 					}
 				}
-				System.out.println("turbine: " + turbine + " sn: " + sn + " Fnmax: " + Fnmax[turbine][sn] + " qn: " + Qn[turbine][sn]);
+				System.out.println("turbine: " + turbine +" Fnmax: " + Fnmax[turbine][sn] + " qn: " + Qn[turbine][sn]);
 			}
-		
 		}		
 	}
 
@@ -136,7 +136,7 @@ public class Algo {
 				double hn =  calculHauteurChuteNette(Sn[sn]);
 				double p = calculPuissance(Sn[sn], hn, turbine);
 				Gn[turbine][sn] = p;
-				System.out.println("turbine " + turbine + " Gn[turbine][sn]: " + Gn[turbine][sn]);
+				//System.out.println("turbine " + turbine + " Gn[turbine][sn]: " + Gn[turbine][sn]);
 			}
 		}
 		return Gn;
