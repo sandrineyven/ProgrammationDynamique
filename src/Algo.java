@@ -18,27 +18,27 @@ public class Algo {
 
 		// Initialisation des turbines
 		listeTurbines.add(null);
-		Turbine turbine1 = new Turbine(sizeSn, Sn, 1);
-		listeTurbines.add(turbine1);
-		Turbine turbine2 = new Turbine(sizeSn, Sn, 2);
-		listeTurbines.add(2, turbine2);
-		Turbine turbine3 = new Turbine(sizeSn, Sn, 3);
-		listeTurbines.add(3, turbine3);
-		Turbine turbine4 = new Turbine(sizeSn, Sn, 4);
-		listeTurbines.add(4, turbine4);
-		Turbine turbine5 = new Turbine(sizeSn, Sn, 5);
-		listeTurbines.add(5, turbine5);
+		Turbine turbine1 = new Turbine(sizeSn, Sn, 1, true);
+		if(turbine1.isActive()) listeTurbines.add(turbine1);
+		Turbine turbine2 = new Turbine(sizeSn, Sn, 2, true);
+		if(turbine2.isActive()) listeTurbines.add(turbine2);
+		Turbine turbine3 = new Turbine(sizeSn, Sn, 3, true);
+		if(turbine3.isActive())listeTurbines.add(turbine3);
+		Turbine turbine4 = new Turbine(sizeSn, Sn, 4, true);
+		if(turbine4.isActive())listeTurbines.add(turbine4);
+		Turbine turbine5 = new Turbine(sizeSn, Sn, 5, true);
+		if(turbine5.isActive())listeTurbines.add(turbine5);
 
 		// Backward pass
 		// Turbine 5 (premiere passe):
-
 		for (int sn = 1; sn < sizeSn; sn++) {
 			if(Sn[sn] > Constante.debitMaxTurbine) {
-				turbine5.setFnmax(0,sn);
+				listeTurbines.get(listeTurbines.size() - 1).setFnmax(0,sn);
 			}else {
-				turbine5.setFnmax(turbine5.getGn(sn),sn);
-				turbine5.setXn(Sn[sn], sn);
+				listeTurbines.get(listeTurbines.size() - 1).setFnmax(turbine5.getGn(sn),sn);
+				listeTurbines.get(listeTurbines.size() - 1).setXn(Sn[sn], sn);
 			}
+			//System.out.println("turbine: 1 Fninter: " + listeTurbines.get(listeTurbines.size() - 1).getFnmax(sn) + " sn :" + sn);
 		}
 		
 		// Turbines intermédiaires:
@@ -46,8 +46,7 @@ public class Algo {
 		double[][] FnInter = new double[sizeSn][sizeSn];
 
 		// Pour toutes les turbines intermediaires: (ici de 4 à 2)
-		for (int turbine = 4; turbine > 1; turbine--) {
-			Turbine turbineCourante = listeTurbines.get(turbine);
+		for (int turbine = listeTurbines.size()-2; turbine > 1; turbine--) {
 			for (int sn = 0; sn < sizeSn; sn++) {
 				for (int xn = 0; xn < sizeSn; xn++) {
 					if(Sn[sn] > Constante.debitMaxTurbine || Sn[xn] > Constante.debitMaxTurbine ) {
@@ -56,11 +55,11 @@ public class Algo {
 						// zone non remplissable du tableau
 						FnInter[sn][xn] = -1;
 					} else {
-						FnInter[sn][xn] = turbineCourante.getGn(xn) + listeTurbines.get(turbine+1).getFnmax(sn-xn);
+						FnInter[sn][xn] = listeTurbines.get(turbine).getGn(xn) + listeTurbines.get(turbine+1).getFnmax(sn-xn);
 					}
-					//System.out.println("turbine: "+ turbine + " Fninter: " + FnInter[sn][xn] + "sn :" + sn);
+					//System.out.println("turbine: "+ turbine + " Fninter: " + FnInter[sn][xn] + " sn :" + sn + " xn: " + xn);
 				}
-				turbineCourante.setFnmax(0, 0);
+				listeTurbines.get(turbine).setFnmax(0, 0);
 			}
 
 			// Trouver les maxi: reconstruction de Fnmax pour le calcul de la turbine
@@ -68,14 +67,14 @@ public class Algo {
 
 			// Recupération du débit pour le quel Fnmax est maximum (pour l'utiliser dans le
 			// forward pass)
-			turbineCourante.setXn(0, 0);
+			listeTurbines.get(turbine).setXn(0, 0);
 			for (int sn = 1; sn < sizeSn; sn++) {
 				for (int xn = 0; xn < sizeSn; xn++) {
-					if (turbineCourante.getFnmax(sn) < FnInter[xn][sn]) {
+					if (listeTurbines.get(turbine).getFnmax(sn) < FnInter[xn][sn]) {
 						// Récupération du maximum
-						turbineCourante.setFnmax(FnInter[xn][sn], sn);
+						listeTurbines.get(turbine).setFnmax(FnInter[xn][sn], sn);
 						// Récupération du débit correspondant au maximum
-						turbineCourante.setXn(Sn[sn],sn);
+						listeTurbines.get(turbine).setXn(Sn[sn],sn);
 					}
 				}
 			//System.out.println("turbine: " + turbine +" Fnmax: " + turbineCourante.getFnmax(sn) + " qn: " + turbineCourante.getXn(sn));
@@ -88,24 +87,24 @@ public class Algo {
 			if(Sn[xn] > Constante.debitMaxTurbine) {
 				FnInter[sizeSn - 1][xn] = 0;
 			}else {
-				FnInter[sizeSn - 1][xn] = turbine1.getGn(xn) + turbine2.getFnmax(sizeSn - 1 - xn);
+				FnInter[sizeSn - 1][xn] = listeTurbines.get(1).getGn(xn) + listeTurbines.get(2).getFnmax(sizeSn - 1 - xn);
 			}
 		}
 
 		for (int xn = 1; xn < sizeSn; xn++) {
 			if (FnInter[sizeSn - 1][xn - 1] < FnInter[sizeSn - 1][xn]) {
 				// Récupération du maximum
-				turbine1.setFnmax(FnInter[sizeSn - 1][xn], sizeSn - 1);
+				listeTurbines.get(1).setFnmax(FnInter[sizeSn - 1][xn], sizeSn - 1);
 				// Récupération du débit correspondant au maximum
-				turbine1.setXn(Sn[xn], sizeSn - 1);
+				listeTurbines.get(1).setXn(Sn[xn], sizeSn - 1);
 			}
 		}
 
 	
-		for (int turbine = 1; turbine < 6; turbine++) {
+		for (int turbine = 1; turbine < listeTurbines.size(); turbine++) {
 			Turbine tur = listeTurbines.get(turbine);
 			for (int xn = 1; xn < sizeSn; xn++) {
-				//System.out.println("turbine: "+turbine+"  FnMax: "  + tur.getFnmax(xn) + " sn : " + xn+ " QnMax: " + tur.getXn(xn));
+				System.out.println("turbine: "+tur.getId()+"  FnMax: "  + tur.getFnmax(xn) + " sn : " + xn+ " QnMax: " + tur.getXn(xn));
 			}
 		}
 		

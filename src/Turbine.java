@@ -2,11 +2,11 @@
 public class Turbine {
 
 	// Coefficients de l'équation des puissance des 5 turbines
-	private static double[] coeffP1 = { 31.57, 1.796, 17.28, -0.0078120, 0.8945, -2.914, -0.014010, 0.12623 };
-	private static double[] coeffP2 = { 30.33, 1.715, 20.53, -0.0064880, 1.0850, -3.356, 0.020120, 0.11620 };
-	private static double[] coeffP3 = { 33.58, 1.891, 16.88, -0.0007952, 1.0010, -3.611, -0.007118, 0.14080 };
-	private static double[] coeffP4 = { 34.50, 1.893, 19.79, -0.0061180, 1.2370, -4.030, 0.007646, 0.15470 };
-	private static double[] coeffP5 = { 32.00, 2.030, 17.86, -0.0282700, 1.2390, -2.710, 0.034180, 0.11840 };
+	private static double[] coeffP1 = { 31.57, 1.796, 17.28, -0.0078120, 0.8945, -2.914, -0.014010, 0.12623, - 1.918 };
+	private static double[] coeffP2 = { 30.33, 1.715, 20.53, -0.0064880, 1.0850, -3.356, 0.020120, 0.11620, - 3.021 };
+	private static double[] coeffP3 = { 33.58, 1.891, 16.88, -0.0007952, 1.0010, -3.611, -0.007118, 0.14080, - 2.002 };
+	private static double[] coeffP4 = { 34.50, 1.893, 19.79, -0.0061180, 1.2370, -4.030, 0.007646, 0.15470, - 2.676 };
+	private static double[] coeffP5 = { 32.00, 2.030, 17.86, -0.0282700, 1.2390, -2.710, 0.034180, 0.11840,- 1.904 };
 
 	// Puissances de base
 	private double[] Gn;
@@ -18,15 +18,18 @@ public class Turbine {
 
 	// Id de la turbine
 	private int id;
-	
+	private boolean isActive = false;
 	private int debitFinal = 0;
 	private double puissanceFinale = 0;
 
-	public Turbine(int sizeSn, int[] Sn, int id) {
+	public Turbine(int sizeSn, int[] Sn, int id, boolean active) {
 		this.id = id;
 		this.Gn = initGn(sizeSn, Sn);
 		this.Fnmax = new double[sizeSn];
 		this.Xn = new int[sizeSn];
+		if(active) {
+			this.isActive = true;
+		}
 	}
 
 	private double[] initGn(int sizeSn, int[] Sn) {
@@ -128,4 +131,13 @@ public class Turbine {
 		Xn[i] = xn;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	
 }
