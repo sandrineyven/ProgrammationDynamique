@@ -2,7 +2,7 @@
 public class Constante {
 
 	// Paramètres
-		public static int qtot = 30;
+		public static int qtot = 550;
 		public static double elam = 175;
 		
 		//Bornes
