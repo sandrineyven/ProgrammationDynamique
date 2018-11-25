@@ -41,6 +41,7 @@ public class Turbine {
 				double hn = calculHauteurChuteNette(Sn[sn]);
 				double p = calculPuissance(Sn[sn], hn, this.id);
 				Gn[sn] = p;
+				//System.out.println("id : " + this.id + " gn: " + Gn[sn]);
 			}
 		}
 		
