@@ -22,13 +22,13 @@ public class Algo {
 		Turbine turbine1 = new Turbine(sizeSn, Sn, 1, true);
 		if (turbine1.isActive())
 			listeTurbines.add(turbine1);
-		Turbine turbine2 = new Turbine(sizeSn, Sn, 2, true);
+		Turbine turbine2 = new Turbine(sizeSn, Sn, 2, false);
 		if (turbine2.isActive())
 			listeTurbines.add(turbine2);
 		Turbine turbine3 = new Turbine(sizeSn, Sn, 3, true);
 		if (turbine3.isActive())
 			listeTurbines.add(turbine3);
-		Turbine turbine4 = new Turbine(sizeSn, Sn, 4, false);
+		Turbine turbine4 = new Turbine(sizeSn, Sn, 4, true);
 		if (turbine4.isActive())
 			listeTurbines.add(turbine4);
 		Turbine turbine5 = new Turbine(sizeSn, Sn, 5, true);

@@ -2,8 +2,8 @@
 public class Constante {
 
 	// Paramètres
-		public static int qtot = 550;
-		public static double elam = 175;
+		public static int qtot = 575;
+		public static double elam = 172.140;
 		
 		//Bornes
 		public static int debitMaxTurbine = 160;
