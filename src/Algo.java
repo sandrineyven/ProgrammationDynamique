@@ -1,10 +1,12 @@
 import java.util.ArrayList;
-
+import javax.swing.JFrame;
 public class Algo {
 
 	public static ArrayList<Turbine> listeTurbines = new ArrayList<Turbine>(6);
 
 	public static void main(String[] args) {
+		
+		Interface fen = new Interface();
 
 		// Discrétisation de Sn
 		int sizeSn = Constante.qtot / 5 + 1;
