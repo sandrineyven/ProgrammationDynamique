@@ -25,8 +25,13 @@ import java.awt.event.ItemListener;
 public class Interface extends JFrame {
 	// Instanciation d'un objet JPanel
 	JPanel panel = new JPanel();
-	ImageIcon background = new ImageIcon("latuque-01.jpg");
-	JLabel label = new JLabel();
+	//ImageIcon background = new ImageIcon("latuque-01.jpg");
+	//JLabel label = new JLabel();
+	
+	ImageIcon img = new ImageIcon("latuque-01.jpg");
+	JLabel background = new JLabel("", img, JLabel.CENTER);
+	
+	
 	JPanel container = new JPanel();
 	GridLayout gl = new GridLayout(3, 3, 5, 5);
 
@@ -41,9 +46,11 @@ public class Interface extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setLayout(new GridLayout(2, 2));
 
-		panel.add(new JButton("Lancer Algo"));
-		label.setIcon(background);
-		panel.add(label);
+		panel.add(new JButton("Calculer"));
+		background.setBounds(0,0,800,548);
+		add(background);
+		//label.setIcon(background);
+		//panel.add(label);
 
 		// Paramètres
 		// Débit total
@@ -62,6 +69,15 @@ public class Interface extends JFrame {
 		jtf2.setPreferredSize(new Dimension(100, 20));
 		panelElav.add(elav);
 		panelElav.add(jtf2);
+		
+		// Débit maximal par turbine à définir par l'utilisateur
+
+		JPanel DebitMax = new JPanel();
+		JLabel DbMax = new JLabel("Débit maximale turbine : ");
+		JTextField jtf3 = new JTextField("");
+		jtf3.setPreferredSize(new Dimension(100, 20));
+		DebitMax.add(DbMax);
+		DebitMax.add(jtf3);
 
 		// On prévient notre JFrame que notre JPanel sera son content pane
 
@@ -69,6 +85,7 @@ public class Interface extends JFrame {
 		/* (0,0) */ this.getContentPane().add(panelDebit);
 		/* (0,1) */ this.getContentPane().add(panel);
 		/* (1,0) */ this.getContentPane().add(panelElav);
+		/* (1,1) */ this.getContentPane().add(DebitMax);
 
 		this.setVisible(true);
 
