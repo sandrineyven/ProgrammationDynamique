@@ -2,11 +2,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 public class Algo {
 
-	public static ArrayList<Turbine> listeTurbines = new ArrayList<Turbine>(6);
-
-	public static void main(String[] args) {
-		
-		Interface fen = new Interface();
+	public static void algo() {
 
 		// Discrétisation de Sn
 		int sizeSn = Constante.qtot / 5 + 1;
@@ -20,20 +16,21 @@ public class Algo {
 		}
 
 		// Initialisation des turbines - TRUE: ACTIVATION - FALSE: DESACTIVATION
+		ArrayList<Turbine> listeTurbines = new ArrayList<Turbine>(6);
 		listeTurbines.add(null);
-		Turbine turbine1 = new Turbine(sizeSn, Sn, 1, true);
+		Turbine turbine1 = new Turbine(sizeSn, Sn, 1, !Constante.turbine1);
 		if (turbine1.isActive())
 			listeTurbines.add(turbine1);
-		Turbine turbine2 = new Turbine(sizeSn, Sn, 2, false);
+		Turbine turbine2 = new Turbine(sizeSn, Sn, 2, !Constante.turbine2);
 		if (turbine2.isActive())
 			listeTurbines.add(turbine2);
-		Turbine turbine3 = new Turbine(sizeSn, Sn, 3, true);
+		Turbine turbine3 = new Turbine(sizeSn, Sn, 3, !Constante.turbine3);
 		if (turbine3.isActive())
 			listeTurbines.add(turbine3);
-		Turbine turbine4 = new Turbine(sizeSn, Sn, 4, true);
+		Turbine turbine4 = new Turbine(sizeSn, Sn, 4, !Constante.turbine4);
 		if (turbine4.isActive())
 			listeTurbines.add(turbine4);
-		Turbine turbine5 = new Turbine(sizeSn, Sn, 5, true);
+		Turbine turbine5 = new Turbine(sizeSn, Sn, 5, !Constante.turbine5);
 		if (turbine5.isActive())
 			listeTurbines.add(turbine5);
 

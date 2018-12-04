@@ -1,39 +1,43 @@
 
-import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 public class Interface extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		new Interface().setVisible(true);
+	}
+
 	// Instanciation d'un objet JPanel
 	JPanel panel = new JPanel();
-	//ImageIcon background = new ImageIcon("latuque-01.jpg");
-	//JLabel label = new JLabel();
-	
-	ImageIcon img = new ImageIcon("latuque-01.jpg");
-	JLabel background = new JLabel("", img, JLabel.CENTER);
-	
-	
-	JPanel container = new JPanel();
-	GridLayout gl = new GridLayout(3, 3, 5, 5);
+	// ImageIcon background = new ImageIcon("latuque-01.jpg");
+	// JLabel label = new JLabel();
+
+//	ImageIcon img = new ImageIcon("latuque-01.jpg");
+//	JLabel background = new JLabel("", img, JLabel.CENTER);
+
+	JButton boutonCalculer = new JButton("Calculer");
+	JTextField jtf = new JTextField("");
+	JTextField jtf2 = new JTextField("");
+	JTextField jtf3 = new JTextField("");
+	JCheckBox check1 = new JCheckBox("Turbine 1");
+	JCheckBox check2 = new JCheckBox("Turbine 2");
+	JCheckBox check3 = new JCheckBox("Turbine 3");
+	JCheckBox check4 = new JCheckBox("Turbine 4");
+	JCheckBox check5 = new JCheckBox("Turbine 5");
 
 	public Interface() {
 
@@ -44,19 +48,21 @@ public class Interface extends JFrame {
 		// Termine le processus lorsqu'on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setLayout(new GridLayout(2, 2));
 
-		panel.add(new JButton("Calculer"));
-		background.setBounds(0,0,800,548);
-		add(background);
-		//label.setIcon(background);
-		//panel.add(label);
+		// Disposition !!
+		this.setLayout(new GridLayout(2, 4));
+
+		boutonCalculer.addActionListener(new BoutonListener());
+		panel.add(boutonCalculer);
+//		background.setBounds(0, 0, 800, 548);
+//		add(background);
+		// label.setIcon(background);
+		// panel.add(label);
 
 		// Paramètres
 		// Débit total
 		JPanel panelDebit = new JPanel();
 		JLabel debitTotal = new JLabel("Débit total : ");
-		JTextField jtf = new JTextField("");
 		jtf.setPreferredSize(new Dimension(100, 20));
 		panelDebit.add(debitTotal);
 		panelDebit.add(jtf);
@@ -64,31 +70,67 @@ public class Interface extends JFrame {
 		// Elévation avale
 
 		JPanel panelElav = new JPanel();
-		JLabel elav = new JLabel("Elévation aval : ");
-		JTextField jtf2 = new JTextField("");
+		JLabel elav = new JLabel("Elévation amont : ");
 		jtf2.setPreferredSize(new Dimension(100, 20));
 		panelElav.add(elav);
 		panelElav.add(jtf2);
-		
+
 		// Débit maximal par turbine à définir par l'utilisateur
 
 		JPanel DebitMax = new JPanel();
 		JLabel DbMax = new JLabel("Débit maximale turbine : ");
-		JTextField jtf3 = new JTextField("");
 		jtf3.setPreferredSize(new Dimension(100, 20));
 		DebitMax.add(DbMax);
 		DebitMax.add(jtf3);
-
-		// On prévient notre JFrame que notre JPanel sera son content pane
-
+		
+		//CheckBox
+		JPanel top = new JPanel();
+		JLabel checkLabel = new JLabel("Turbine désactivée : ");
+		top.add(checkLabel);
+	    
+	    top.add(check1);
+	    top.add(check2);
+	    top.add(check3);
+	    top.add(check4);
+	    top.add(check5);
+		
 		// Dans l'ordre pour remplir la GridLayout
 		/* (0,0) */ this.getContentPane().add(panelDebit);
-		/* (0,1) */ this.getContentPane().add(panel);
 		/* (1,0) */ this.getContentPane().add(panelElav);
 		/* (1,1) */ this.getContentPane().add(DebitMax);
+		/* (0,1) */ this.getContentPane().add(panel);
+		this.getContentPane().add(top);
 
-		this.setVisible(true);
+	}
 
+	class BoutonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			//Param
+			if(jtf.getText().length() != 0 && jtf.getText().length() != 0 && jtf.getText().length() != 0) {
+			Constante.qtot = Integer.parseInt(jtf.getText());
+			Constante.elam = Double.parseDouble(jtf2.getText());
+			Constante.debitMaxTurbine = Integer.parseInt(jtf3.getText());
+			}else {
+				System.out.println("wallah c pas bon");
+				return;
+			}
+			
+			if(Constante.qtot < Constante.debitMaxTurbine) {
+				System.out.println("wallah c pas bon");
+				return;
+			}
+			//Turbine desactivee
+			Constante.turbine1 = check1.isSelected();
+			Constante.turbine2 = check2.isSelected();
+			Constante.turbine3 = check3.isSelected();
+			Constante.turbine4 = check4.isSelected();
+			Constante.turbine5 = check5.isSelected();
+			System.out.print(check1.isSelected());
+			
+			//Lancement algo
+			Algo.algo();
+		}
 	}
 
 }
