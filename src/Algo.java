@@ -176,6 +176,8 @@ public class Algo {
 
 		System.out.println("Puissance max opti:  " + Ptot);
 		System.out.println("Débit restant:  " + debitRestant);
+		
+		interfaceTurbines.clear();
 
 		interfaceTurbines.add(turbine1);
 		interfaceTurbines.add(turbine2);
@@ -188,5 +190,8 @@ public class Algo {
 	public static ArrayList<Turbine> getInterfaceTurbines() {
 		return interfaceTurbines;
 	}
+
+
+
 
 }

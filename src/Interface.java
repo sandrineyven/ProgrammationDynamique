@@ -26,11 +26,6 @@ public class Interface extends JFrame {
 
 	// Instanciation d'un objet JPanel
 	JPanel panel = new JPanel();
-	// ImageIcon background = new ImageIcon("latuque-01.jpg");
-	// JLabel label = new JLabel();
-
-//	ImageIcon img = new ImageIcon("latuque-01.jpg");
-//	JLabel background = new JLabel("", img, JLabel.CENTER);
 
 	JButton boutonCalculer = new JButton("Calculer");
 	JTextField jtf = new JTextField("");
