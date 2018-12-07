@@ -37,18 +37,20 @@ public class Graphe extends JFrame {
 
     private CategoryDataset createDataset() {
     	Algo.algo();
-    	Algo.class.getMethods();
+    	
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(12, "Débit turbiné", "Turbine1");
-        dataset.setValue(38, "Débit turbiné", "Turbine2");
-        dataset.setValue(29, "Débit turbiné", "Turbine3");
-        dataset.setValue(22, "Débit turbiné", "Turbine4");
-        dataset.setValue(13, "Débit turbiné", "Turbine5");
+        dataset.setValue(Algo.getInterfaceTurbines().get(0).getPuissanceFinale(), "Débit turbiné", "Turbine1");
+        dataset.setValue(Algo.getInterfaceTurbines().get(1).getPuissanceFinale(), "Débit turbiné", "Turbine2");
+        dataset.setValue(Algo.getInterfaceTurbines().get(2).getPuissanceFinale(), "Débit turbiné", "Turbine3");
+        dataset.setValue(Algo.getInterfaceTurbines().get(3).getPuissanceFinale(), "Débit turbiné", "Turbine4");
+        dataset.setValue(Algo.getInterfaceTurbines().get(4).getPuissanceFinale(), "Débit turbiné", "Turbine5");
 
         return dataset;
     }
 
     private JFreeChart createChart(CategoryDataset dataset) {
+    	
+    	Algo.algo();
 
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Débit turbiné par chacune des turbines centrale CDD",
