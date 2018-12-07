@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Algo {
 
 	static ArrayList<Turbine> interfaceTurbines = new ArrayList<Turbine>(5);
+	static double puissancetotale;
 
 	public static void algo() {
 
@@ -184,6 +185,8 @@ public class Algo {
 		interfaceTurbines.add(turbine3);
 		interfaceTurbines.add(turbine4);
 		interfaceTurbines.add(turbine5);
+		
+		puissancetotale = Ptot;
 
 	}
 
@@ -191,6 +194,9 @@ public class Algo {
 		return interfaceTurbines;
 	}
 
+	public static double getPuissancetotale() {
+		return puissancetotale;
+	}
 
 
 

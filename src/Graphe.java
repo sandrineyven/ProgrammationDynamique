@@ -14,6 +14,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.RectangleEdge;
 
 public class Graphe extends JFrame {
 
@@ -21,6 +22,8 @@ public class Graphe extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	NumberFormat nf = new DecimalFormat("0.##");
 
 	public Graphe(boolean pie) {
 
@@ -28,6 +31,7 @@ public class Graphe extends JFrame {
 			PieDataset dataset2 = createDataset2();
 			JFreeChart pieChart = createChart2(dataset2);
 			ChartPanel pieChartPanel = new ChartPanel(pieChart);
+			pieChart.getLegend().setPosition(RectangleEdge.RIGHT);
 			pieChartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 			add(pieChartPanel);
 			setTitle("Pie chart");
@@ -52,7 +56,6 @@ public class Graphe extends JFrame {
 
 	private CategoryDataset createDataset() {
 
-		System.out.println("ICI ------> " + Algo.getInterfaceTurbines().get(2).getDebitFinal());
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		dataset.setValue(Algo.getInterfaceTurbines().get(0).getDebitFinal(), "Débit turbiné", "Turbine1");
 		dataset.setValue(Algo.getInterfaceTurbines().get(1).getDebitFinal(), "Débit turbiné", "Turbine2");
@@ -68,18 +71,24 @@ public class Graphe extends JFrame {
 
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 
-		NumberFormat nf = new DecimalFormat("0.##");
+
 		String p1 = nf.format(Algo.getInterfaceTurbines().get(0).getPuissanceFinale());
 		String p2 = nf.format(Algo.getInterfaceTurbines().get(1).getPuissanceFinale());
 		String p3 = nf.format(Algo.getInterfaceTurbines().get(2).getPuissanceFinale());
 		String p4 = nf.format(Algo.getInterfaceTurbines().get(3).getPuissanceFinale());
 		String p5 = nf.format(Algo.getInterfaceTurbines().get(4).getPuissanceFinale());
 
-		String t1 = "Puissance turbine 1 = " + p1;
-		String t2 = "Puissance turbine 2 = " + p2;
-		String t3 = "Puissance turbine 3 = " + p3;
-		String t4 = "Puissance turbine 4 = " + p4;
-		String t5 = "Puissance turbine 5 = " + p5;
+		String percent1 = nf.format(percent(Algo.getInterfaceTurbines().get(0).getPuissanceFinale()));
+		String percent2 = nf.format(percent(Algo.getInterfaceTurbines().get(1).getPuissanceFinale()));
+		String percent3 = nf.format(percent(Algo.getInterfaceTurbines().get(2).getPuissanceFinale()));
+		String percent4 = nf.format(percent(Algo.getInterfaceTurbines().get(3).getPuissanceFinale()));
+		String percent5 = nf.format(percent(Algo.getInterfaceTurbines().get(4).getPuissanceFinale()));
+
+		String t1 = "Puissance turbine 1 :\n " + p1 + " MW" + "\n " + percent1 + " %";
+		String t2 = "Puissance turbine 2 :\n " + p2 + " MW" + "\n " + percent2 + " %";
+		String t3 = "Puissance turbine 3 :\n " + p3 + " MW" + "\n " + percent3 + " %";
+		String t4 = "Puissance turbine 4 :\n " + p4 + " MW" + "\n " + percent4 + " %";
+		String t5 = "Puissance turbine 5 :\n " + p5 + " MW" + "\n " + percent5 + " %";
 
 		pieDataset.setValue(t1, Algo.getInterfaceTurbines().get(0).getPuissanceFinale());
 
@@ -105,9 +114,15 @@ public class Graphe extends JFrame {
 
 	private JFreeChart createChart2(PieDataset dataset2) {
 
-		JFreeChart pieChart = ChartFactory.createPieChart("Distribution de la puissance en MW", dataset2);
+		JFreeChart pieChart = ChartFactory.createPieChart("Distribution de la puissance en MW\nPuissance totale: "+nf.format(Algo.getPuissancetotale())+" MW", dataset2);
 
 		return pieChart;
+	}
+
+	private double percent(double p) {
+
+		return p * 100 / Algo.getPuissancetotale();
+
 	}
 
 }
