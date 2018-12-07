@@ -20,7 +20,7 @@ public class Interface extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
-		new Interface().setVisible(true);
+		new Interface();
 
 	}
 
@@ -115,6 +115,8 @@ public class Interface extends JFrame {
 		this.getContentPane().add(top4);
 		this.getContentPane().add(blanc);
 		this.getContentPane().add(panel, BorderLayout.CENTER);
+		
+		setVisible(true);
 
 	}
 
@@ -142,10 +144,10 @@ public class Interface extends JFrame {
 				}
 
 				// Tout est ok on peut lancer l'algo
-				Algo.algo();
+				
 
 				SwingUtilities.invokeLater(() -> {
-
+					Algo.algo();
 					new Graphe(false);
 					new Graphe(true);
 				});

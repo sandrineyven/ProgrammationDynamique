@@ -10,10 +10,14 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.VerticalAlignment;
+
+import com.sun.javafx.charts.Legend;
 
 public class Graphe extends JFrame {
 
@@ -45,6 +49,7 @@ public class Graphe extends JFrame {
 			setLocation(600,200);
 
 		}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pack();
 		setVisible(true);
