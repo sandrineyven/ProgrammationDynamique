@@ -1,6 +1,11 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import javax.swing.JFrame;
 public class Algo {
+	private List ListeTurb1;
+
 
 	public static void algo() {
 
@@ -176,6 +181,24 @@ public class Algo {
 		
 		System.out.println("Puissance max opti:  " + Ptot);
 		System.out.println("Débit restant:  " + debitRestant);
+		
+		List ListeTurb = new LinkedList();
+		ListeTurb.add(turbine1);
+		ListeTurb.add(turbine2);
+		ListeTurb.add(turbine3);
+		ListeTurb.add(turbine4);
+		ListeTurb.add(turbine5);
+
+	}
+	public void setListe(List ListeTurb)
+	      {
+	        this.ListeTurb1 = ListeTurb;
+	      }
+		public List getListe()
+	      {
+	        return ListeTurb1;
+		
+		
 	}
 
 }

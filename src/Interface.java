@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class Interface extends JFrame {
 	/**
@@ -19,6 +20,10 @@ public class Interface extends JFrame {
 
 	public static void main(String[] args) {
 		new Interface().setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+            Graphe ex = new Graphe();
+            ex.setVisible(true);
+            });
 	}
 
 	// Instanciation d'un objet JPanel
