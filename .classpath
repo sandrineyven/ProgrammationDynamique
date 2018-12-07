@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Sandrine/Documents/Opti/ProgrammationDynamique/lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Sandrine/Documents/Opti/ProgrammationDynamique/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/utilEnsemJava.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
