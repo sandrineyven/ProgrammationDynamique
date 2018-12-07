@@ -21,10 +21,7 @@ public class Interface extends JFrame {
 
 	public static void main(String[] args) {
 		new Interface().setVisible(true);
-		SwingUtilities.invokeLater(() -> {
-            Graphe ex = new Graphe();
-            ex.setVisible(true);
-            });
+		
 	}
 
 	// Instanciation d'un objet JPanel
@@ -117,13 +114,31 @@ public class Interface extends JFrame {
 			Constante.qtot = Integer.parseInt(jtf.getText());
 			Constante.elam = Double.parseDouble(jtf2.getText());
 			Constante.debitMaxTurbine = Integer.parseInt(jtf3.getText());
+			SwingUtilities.invokeLater(() -> {
+	            Graphe ex = new Graphe();
+	            ex.setVisible(true);
+	            //Algo.algo();
+	            
+	            });
 			}else {
 				System.out.println("wallah c pas bon");
+				SwingUtilities.invokeLater(() -> {
+		            Graphe ex = new Graphe();
+		            ex.setVisible(true);
+		            //Algo.algo();
+		            
+		            });
 				return;
 			}
 			
 			if(Constante.qtot < Constante.debitMaxTurbine) {
 				System.out.println("wallah c pas bon");
+				SwingUtilities.invokeLater(() -> {
+		            Graphe ex = new Graphe();
+		            ex.setVisible(true);
+		            //Algo.algo();
+		            
+		            });
 				return;
 			}
 			//Turbine desactivee

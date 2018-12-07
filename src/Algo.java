@@ -180,12 +180,16 @@ public class Algo {
 
 		System.out.println("Puissance max opti:  " + Ptot);
 		System.out.println("Débit restant:  " + debitRestant);
+		
+		
 
 		interfaceTurbines.add(turbine1);
 		interfaceTurbines.add(turbine2);
 		interfaceTurbines.add(turbine3);
 		interfaceTurbines.add(turbine4);
 		interfaceTurbines.add(turbine5);
+		
+		System.out.println("LE DEBIT VAUT :" + Algo.interfaceTurbines.get(0).getDebitFinal());
 
 	}
 
