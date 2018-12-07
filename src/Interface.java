@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -135,6 +136,12 @@ public class Interface extends JFrame {
 			
 			//Lancement algo
 			Algo.algo();
+			 ArrayList<Turbine> turbines = Algo.getInterfaceTurbines();
+			 Turbine turbine1 = turbines.get(0);
+			 Turbine turbine2 = turbines.get(1);
+			 Turbine turbine3 = turbines.get(2);
+			 Turbine turbine4 = turbines.get(3);
+			 Turbine turbine5 = turbines.get(4);
 		}
 	}
 

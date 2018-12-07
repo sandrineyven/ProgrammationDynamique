@@ -3,9 +3,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import javax.swing.JFrame;
-public class Algo {
-	private List ListeTurb1;
 
+public class Algo {
+
+	static ArrayList<Turbine> interfaceTurbines = new ArrayList<Turbine>(5);
 
 	public static void algo() {
 
@@ -105,18 +106,17 @@ public class Algo {
 
 		// Forward pass-----------------------------------------------
 
-		
-		//Turbine 1:
+		// Turbine 1:
 		int Q1 = turbine1.getXn(sizeSn - 1);
 		int index = Q1 / 5 > 0 ? Q1 / 5 : 0;
 		double P1 = turbine1.getGn(index);
 		int debitRestant = Constante.qtot - Q1;
 		turbine1.setDebitFinal(Q1);
 		turbine1.setPuissanceFinale(P1);
-		
+
 		index = debitRestant / 5 > 0 ? debitRestant / 5 : 0;
 
-		//Turbine 2:
+		// Turbine 2:
 		int Q2 = turbine2.getXn(index);
 		index = Q2 / 5 > 0 ? Q2 / 5 : 0;
 		double P2 = turbine2.getGn(index);
@@ -126,7 +126,7 @@ public class Algo {
 
 		index = debitRestant / 5 > 0 ? debitRestant / 5 : 0;
 
-		//Turbine 3:
+		// Turbine 3:
 		int Q3 = turbine3.getXn(index);
 		index = Q3 / 5 > 0 ? Q3 / 5 : 0;
 		double P3 = turbine3.getGn(index);
@@ -136,7 +136,7 @@ public class Algo {
 
 		index = debitRestant / 5 > 0 ? debitRestant / 5 : 0;
 
-		//Turbine 4:
+		// Turbine 4:
 		int Q4 = turbine4.getXn(index);
 		index = Q4 / 5 > 0 ? Q4 / 5 : 0;
 		double P4 = turbine4.getGn(index);
@@ -146,7 +146,7 @@ public class Algo {
 
 		index = debitRestant / 5 > 0 ? debitRestant / 5 : 0;
 
-		//Turbine 5:
+		// Turbine 5:
 		int Q5 = turbine5.getXn(index);
 		index = Q5 / 5 > 0 ? Q5 / 5 : 0;
 		double P5 = turbine5.getGn(index);
@@ -155,50 +155,42 @@ public class Algo {
 		turbine5.setPuissanceFinale(P5);
 
 		double Ptot = P1 + P2 + P3 + P4 + P5;
-		
-		//Affichage des résultats:
-		
+
+		// Affichage des résultats:
+
 		System.out.println("Turbine n°1:");
 		System.out.println("Q1:  " + turbine1.getDebitFinal());
 		System.out.println("P1:  " + turbine1.getPuissanceFinale());
-		
+
 		System.out.println("Turbine n°2:");
 		System.out.println("Q2:  " + turbine2.getDebitFinal());
 		System.out.println("P2:  " + turbine2.getPuissanceFinale());
-		
+
 		System.out.println("Turbine n°3:");
 		System.out.println("Q3:  " + turbine3.getDebitFinal());
 		System.out.println("P3:  " + turbine3.getPuissanceFinale());
-		
+
 		System.out.println("Turbine n°4:");
 		System.out.println("Q4:  " + turbine4.getDebitFinal());
 		System.out.println("P4:  " + turbine4.getPuissanceFinale());
-		
+
 		System.out.println("Turbine n°5:");
 		System.out.println("Q5:  " + turbine5.getDebitFinal());
 		System.out.println("P5:  " + turbine5.getPuissanceFinale());
-		
-		
+
 		System.out.println("Puissance max opti:  " + Ptot);
 		System.out.println("Débit restant:  " + debitRestant);
-		
-		List ListeTurb = new LinkedList();
-		ListeTurb.add(turbine1);
-		ListeTurb.add(turbine2);
-		ListeTurb.add(turbine3);
-		ListeTurb.add(turbine4);
-		ListeTurb.add(turbine5);
+
+		interfaceTurbines.add(turbine1);
+		interfaceTurbines.add(turbine2);
+		interfaceTurbines.add(turbine3);
+		interfaceTurbines.add(turbine4);
+		interfaceTurbines.add(turbine5);
 
 	}
-	public void setListe(List ListeTurb)
-	      {
-	        this.ListeTurb1 = ListeTurb;
-	      }
-		public List getListe()
-	      {
-	        return ListeTurb1;
-		
-		
+
+	public static ArrayList<Turbine> getInterfaceTurbines() {
+		return interfaceTurbines;
 	}
 
 }
