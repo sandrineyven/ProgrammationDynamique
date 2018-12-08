@@ -28,6 +28,7 @@ public class Interface extends JFrame {
 	JPanel panel = new JPanel();
 
 	JButton boutonCalculer = new JButton("Calculer");
+	JButton boutonExcel = new JButton("Excel");
 	JTextField jtf = new JTextField("");
 	JTextField jtf2 = new JTextField("");
 	JTextField jtf3 = new JTextField("");
@@ -42,7 +43,7 @@ public class Interface extends JFrame {
 		// Définit un titre pour notre fenêtre
 		this.setTitle("Outil optimisation");
 		// Définit sa taille : 800 pixels de large et 548 pixels de haut
-		this.setSize(320, 380);
+		this.setSize(320, 400);
 		// Termine le processus lorsqu'on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -110,7 +111,7 @@ public class Interface extends JFrame {
 		this.getContentPane().add(top4);
 		this.getContentPane().add(blanc);
 		this.getContentPane().add(panel, BorderLayout.CENTER);
-		
+
 		setVisible(true);
 
 	}
@@ -139,7 +140,6 @@ public class Interface extends JFrame {
 				}
 
 				// Tout est ok on peut lancer l'algo
-				
 
 				SwingUtilities.invokeLater(() -> {
 					Algo.algo();
