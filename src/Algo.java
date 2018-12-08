@@ -155,28 +155,25 @@ public class Algo {
 
 		// Affichage des résultats:
 
-		System.out.println("Turbine n°1:");
-		System.out.println("Q1:  " + turbine1.getDebitFinal());
-		System.out.println("P1:  " + turbine1.getPuissanceFinale());
 
-		System.out.println("Turbine n°2:");
-		System.out.println("Q2:  " + turbine2.getDebitFinal());
-		System.out.println("P2:  " + turbine2.getPuissanceFinale());
+		System.out.println(turbine1.getDebitFinal());
+		System.out.println( turbine1.getPuissanceFinale());
 
-		System.out.println("Turbine n°3:");
-		System.out.println("Q3:  " + turbine3.getDebitFinal());
-		System.out.println("P3:  " + turbine3.getPuissanceFinale());
 
-		System.out.println("Turbine n°4:");
-		System.out.println("Q4:  " + turbine4.getDebitFinal());
-		System.out.println("P4:  " + turbine4.getPuissanceFinale());
+		System.out.println( turbine2.getDebitFinal());
+		System.out.println(+ turbine2.getPuissanceFinale());
 
-		System.out.println("Turbine n°5:");
-		System.out.println("Q5:  " + turbine5.getDebitFinal());
-		System.out.println("P5:  " + turbine5.getPuissanceFinale());
+		System.out.println(turbine3.getDebitFinal());
+		System.out.println(turbine3.getPuissanceFinale());
 
-		System.out.println("Puissance max opti:  " + Ptot);
-		System.out.println("Débit restant:  " + debitRestant);
+		System.out.println(turbine4.getDebitFinal());
+		System.out.println(turbine4.getPuissanceFinale());
+
+		System.out.println(turbine5.getDebitFinal());
+		System.out.println(turbine5.getPuissanceFinale());
+
+//		System.out.println("Puissance max opti:  " + Ptot);
+//		System.out.println("Débit restant:  " + debitRestant);
 		
 		interfaceTurbines.clear();
 

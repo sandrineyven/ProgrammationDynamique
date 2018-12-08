@@ -143,8 +143,8 @@ public class Interface extends JFrame {
 
 				SwingUtilities.invokeLater(() -> {
 					Algo.algo();
-					new Graphe(false);
-					new Graphe(true);
+//					new Graphe(false);
+//					new Graphe(true);
 				});
 
 			} else {
