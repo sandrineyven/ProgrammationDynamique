@@ -3,9 +3,9 @@ public class Turbine {
 
 	// Coefficients de l'équation des puissance des 5 turbines
 	private static double[] coeffP1 = {  0.08651, -0.0025430, -0.1976, 0.008183, 0.002892, 7.371 * 0.000001, -1.191 * 0.00001 };
-	private static double[] coeffP4 = {  0.81220, -0.0237400, -0.2442, 0.006492, 0.003838, 2.207 * 0.000010, -1.665 * 0.00001 };
-	private static double[] coeffP3 = { -0.02446,  0.0009464, -0.2157, 0.006353, 0.003541, 2.214 * 0.000010, -1.569 * 0.00001 };
 	private static double[] coeffP2 = { -0.04632,  0.0017690, -0.1905, 0.004951, 0.003537, 3.487 * 0.000010, -1.689 * 0.00001 };
+	private static double[] coeffP3 = { -0.02446,  0.0009464, -0.2157, 0.006353, 0.003541, 2.214 * 0.000010, -1.569 * 0.00001 };
+	private static double[] coeffP4 = {  0.81220, -0.0237400, -0.2442, 0.006492, 0.003838, 2.207 * 0.000010, -1.665 * 0.00001 };
 	private static double[] coeffP5 = {  0.29460, -0.0080740, -0.1834, 0.008090, 0.002706, 1.949 * 0.000010, -1.318 * 0.00001 };
 
 	// Puissances de base

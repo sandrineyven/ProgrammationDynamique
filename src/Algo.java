@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Algo {
 
+	//Attribut servant de stockage pour les données a utilisée dans l'interface
 	static ArrayList<Turbine> interfaceTurbines = new ArrayList<Turbine>(5);
 	static double puissancetotale;
 
@@ -171,9 +172,6 @@ public class Algo {
 
 		System.out.println(turbine5.getDebitFinal());
 		System.out.println(turbine5.getPuissanceFinale());
-
-//		System.out.println("Puissance max opti:  " + Ptot);
-//		System.out.println("Débit restant:  " + debitRestant);
 		
 		interfaceTurbines.clear();
 

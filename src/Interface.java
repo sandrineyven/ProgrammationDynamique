@@ -24,7 +24,7 @@ public class Interface extends JFrame {
 
 	}
 
-	// Instanciation d'un objet JPanel
+	// Instanciations
 	JPanel panel = new JPanel();
 
 	JButton boutonCalculer = new JButton("Calculer");
@@ -42,13 +42,12 @@ public class Interface extends JFrame {
 
 		// Définit un titre pour notre fenêtre
 		this.setTitle("Outil optimisation");
-		// Définit sa taille : 800 pixels de large et 548 pixels de haut
+		// Définit sa taille
 		this.setSize(320, 400);
 		// Termine le processus lorsqu'on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
-		// Disposition !!
 		this.setLayout(new GridLayout(6, 2));
 
 		boutonCalculer.addActionListener(new BoutonListener());
@@ -143,8 +142,8 @@ public class Interface extends JFrame {
 
 				SwingUtilities.invokeLater(() -> {
 					Algo.algo();
-//					new Graphe(false);
-//					new Graphe(true);
+					new Graphe(false);
+					new Graphe(true);
 				});
 
 			} else {

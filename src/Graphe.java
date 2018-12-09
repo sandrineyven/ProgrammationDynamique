@@ -105,7 +105,7 @@ public class Graphe extends JFrame {
 
 	private JFreeChart createChart(CategoryDataset dataset) {
 
-		JFreeChart barChart = ChartFactory.createBarChart("Débit turbiné par chacune des turbines centrale CDD",
+		JFreeChart barChart = ChartFactory.createBarChart("Répartition du débit pour chacune des turbines centrale CDD",
 
 				" ", "Débit turbiné en m^3/s", dataset, PlotOrientation.VERTICAL, false, true, false);
 
